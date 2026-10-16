@@ -5,6 +5,17 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=NO" name="viewport"/>
     <link rel="shortcut icon" type="image/x-icon" href="./images/icon_128.png">
     <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css">
+    <script>
+    window.addEventListener('unhandledrejection', function(event) {
+        if (event.reason && event.reason.name === 'NotAllowedError') {
+            event.preventDefault();
+        }
+    });
+    const originalPlay = window.HTMLAudioElement.prototype.play;
+    window.HTMLAudioElement.prototype.play = function() {
+        return originalPlay.apply(this, arguments).catch(err => {});
+    };
+    </script>
     <script type="text/javascript" src="./js/jquery.js" charset="utf-8"></script>
     <script type="text/javascript" src="./js/jquery.dotdotdot.js" charset="utf-8"></script>
     <script type="text/javascript" src="./js/touchscroll.js" charset="utf-8"></script>
